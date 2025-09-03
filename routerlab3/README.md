@@ -1,0 +1,1 @@
+# README reconstruido con soporte XMPP parametrizable\n
