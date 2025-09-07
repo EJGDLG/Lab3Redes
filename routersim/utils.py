@@ -9,6 +9,5 @@ def make_logger(name: str, level: str = "INFO") -> logging.Logger:
     logger.setLevel(getattr(logging, level.upper(), logging.INFO))
     return logger
 def port_for_id(node_id: str, base: int = 50000) -> int:
-    import hashlib
     h = hashlib.sha256(node_id.encode("utf-8")).hexdigest()
     return base + (int(h[:6],16)%1000)

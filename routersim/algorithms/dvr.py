@@ -1,12 +1,11 @@
 from __future__ import annotations
 from typing import Dict, List
 from .base import BaseAlgorithm
-INF = 1e12
+INF=1e12
 class DistanceVector(BaseAlgorithm):
     name="dvr"
     def __init__(self, node_id: str):
-        super().__init__(node_id); self.costs: Dict[str,float]={}; self.dv: Dict[str,float]={node_id:0.0}
-        self.next_hop: Dict[str,str]={}; self.neighbor_vectors: Dict[str,Dict[str,float]]={}; self.split_horizon_poison=True
+        super().__init__(node_id); self.costs={}; self.dv={node_id:0.0}; self.next_hop={}; self.neighbor_vectors={}; self.split_horizon_poison=True
     def neighbors_updated(self, neighbors: List[str]):
         for n in list(self.costs.keys()):
             if n not in neighbors: self.costs.pop(n,None); self.neighbor_vectors.pop(n,None)
@@ -21,8 +20,8 @@ class DistanceVector(BaseAlgorithm):
                 if self.dv.get(dst,INF)!=0.0: self.dv[dst]=0.0; self.next_hop.pop(dst,None); updated=True
                 continue
             best_cost=INF; best_nh=None
-            for n,c_xn in self.costs.items():
-                vec_n=self.neighbor_vectors.get(n,{}); d_ny=vec_n.get(dst,INF); cand=c_xn+d_ny
+            for n,c in self.costs.items():
+                vec_n=self.neighbor_vectors.get(n,{}); d=vec_n.get(dst,INF); cand=c+d
                 if cand<best_cost: best_cost=cand; best_nh=n
             if best_cost < self.dv.get(dst,INF)-1e-9 or (best_nh and self.next_hop.get(dst)!=best_nh):
                 self.dv[dst]=best_cost; 

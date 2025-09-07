@@ -12,7 +12,7 @@ class SocketTransport:
     def stop(self): self._stop.set()
     def _serve(self):
         with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR,1); s.bind((self.host,self.port)); s.listen()
+            s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1); s.bind((self.host,self.port)); s.listen()
             while not self._stop.is_set():
                 try:
                     s.settimeout(1.0); conn, addr = s.accept()
@@ -27,4 +27,7 @@ class SocketTransport:
         host, port = self.host, port_for_id(to_id)
         try:
             with socket.create_connection((host,port),timeout=1.0) as c: c.sendall(json_str.encode("utf-8"))
-        except Exception as e: self.log.warning(f"send to {to_id} failed: {e}")
+        except Exception:
+            # Silenciar warnings de envíos fallidos
+            pass
+
