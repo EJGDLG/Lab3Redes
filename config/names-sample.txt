@@ -1,5 +1,0 @@
-{"type":"names","config":{
-  "A":"nodoA@homelab.fortiguate.com/A",
-  "B":"nodoB@homelab.fortiguate.com/B",
-  "C":"nodoC@homelab.fortiguate.com/C"
-}}
