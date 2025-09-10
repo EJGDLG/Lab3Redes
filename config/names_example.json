@@ -1,16 +1,16 @@
 {
   "type": "names",
   "config": {
-    "N1":  "sec30.grupo1.nodo1",
-    "N2":  "sec30.grupo1.nodo2",
-    "N3":  "sec30.grupo1.nodo3",
-    "N4":  "sec30.grupo1.nodo4",
-    "N5":  "sec30.grupo1.nodo5",
-    "N6":  "sec30.grupo1.nodo6",
-    "N7":  "sec30.grupo1.nodo7",
-    "N8":  "sec30.grupo1.nodo8",
-    "N9":  "sec30.grupo1.nodo9",
-    "N10": "sec30.grupo1.nodo10",
-    "N11": "sec30.grupo1.nodo11"
+    "N1": "N1",
+    "N2": "N2",
+    "N3": "N3",
+    "N4": "N4",
+    "N5": "N5",
+    "N6": "N6",
+    "N7": "N7",
+    "N8": "N8",
+    "N9": "N9",
+    "N10": "N10",
+    "N11": "N11"
   }
 }

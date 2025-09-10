@@ -29,19 +29,8 @@ class Node:
         self.pubsub = None
 
     async def start(self):
-        # Siembra LSP local y tabla inicial
-        self.ls.ingest_lsp({"src": self.id, "seq": 0, "links": self.neighbors})
-        self._recompute_tables()
-
         self.pubsub = self.r.pubsub()
-        # Suscripción a mi canal
         await self.pubsub.subscribe(self.channels[self.id])
-
-        # (Opcional) suscribirse también a los canales de mis vecinos:
-        neighbor_channels = [self.channels[n] for n in self.neighbors if n in self.channels]
-        if neighbor_channels:
-            await self.pubsub.subscribe(*neighbor_channels)
-
         asyncio.create_task(self._forwarding())
         asyncio.create_task(self._hello_loop())
         asyncio.create_task(self._info_loop())
