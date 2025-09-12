@@ -1,4 +1,4 @@
-(imagen)[!imagen_2025-09-11_232103035.png]
+![Descripción de la imagen](imagen_2025-09-11_232103035.png)
 # Cómo correr
 
 # Crear entorno virtual (opcional) e instalar dependencias
