@@ -1,49 +1,34 @@
-# Routing Lab UVG 2025 — Redis/XMPP-Compatible Prototype
+Cómo correr
 
+Crear entorno virtual (opcional) e instalar dependencias
 
-## Cómo correr
-1) Crear venv (opcional) e instalar dependencias
-```bash
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-```
 
-2) Levantar un nodo (ejemplo N1 en modo LSR)
-```bash
-# Ventana N3 (ya tienes N3 corriendo ahí)
-python -m src.run_node --id N3  --proto lsr --topo config/topology_11_nodes.json --names config/names_example.json
-# Ventana N1
-python -m src.run_node --id N1  --proto lsr --topo config/topology_11_nodes.json --names config/names_example.json
-# Ventana N10
-python -m src.run_node --id N10 --proto lsr --topo config/topology_11_nodes.json --names config/names_example.json
-# Ventana N5
-python -m src.run_node --id N5 --proto lsr --topo config/topology_11_nodes.json --names config/names_example.json
 
-# Ventana N6
-python -m src.run_node --id N6 --proto lsr --topo config/topology_11_nodes.json --names config/names_example.json
+Levantar nodos (ejemplo con nodo1, nodo7 y nodo8)
 
-```
-3) Enviar un mensaje de **usuario** de N1 a N10
-```bash
-python -m src.tools.send_message --from N1 --to N5 --text "Hola desde N1 ??" --proto lsr --names config/names_example.json
-#mensaje 2
-python -m src.tools.send_message --from N1 --to N3 --text "Hola desde N1 ??" --proto lsr --names config/names_example.json
-```
+# Ventana A (tu nodo1)
+python -m src.run_sec30 --id sec30.grupo1.nodo1 --topo config/topology_sec30.json --show-table --dijkstra sec30.grupo10.nodo10
 
-4) Cambiar de algoritmo:
-- Flooding: `--proto flooding`
-- Distance Vector: `--proto dvr`
-- Link-State: `--proto lsr` (usa Dijkstra internamente)
+# Ventana B (vecino nodo7)
+python -m src.run_sec30 --id sec30.grupo7.nodo7 --topo config/topology_sec30.json --show-table
 
-## Variables de entorno (opcionales)
-- `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
-- `HELLO_INTERVAL` (segundos, default 5)
-- `INFO_INTERVAL` (segundos, default 8)
-- `TTL_DEFAULT` (default 8)
+# Ventana C (no vecino nodo8)
+python -m src.run_sec30 --id sec30.grupo8.nodo8 --topo config/topology_sec30.json --show-table
 
-## Notas
-- El archivo de **topología** se usa sólo para que **cada nodo** conozca a sus vecinos directos.
-- `names_example.json` mapea IDs a canales/usuarios (en Redis usamos un canal por nodo).
-- Todo el *I/O* de red es no bloqueante con `asyncio`.
-- La tabla de ruteo se imprime al estabilizar o al recibir nueva info.
+
+Qué esperar en la salida
+
+Vecinos (hello)
+
+==== VECINOS (hello) ====
+sec30.grupo7.nodo7    edge_cost=  4  hops= 1  total_cost=  4  time_left= 6  up=00:15
+sec30.grupo11.nodo11  edge_cost= 12  hops= 1  total_cost= 12  time_left= 6  up=00:15
+
+
+No vecinos (flooding)
+
+==== NO VECINOS (vía flooding) ====
+sec30.grupo8.nodo8    edge_cost= -   hops= 2  total_cost= 11  up=00:08
