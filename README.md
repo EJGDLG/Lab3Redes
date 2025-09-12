@@ -1,11 +1,11 @@
-Cómo correr
+(imagen)[!]
+# Cómo correr
 
-Crear entorno virtual (opcional) e instalar dependencias
+# Crear entorno virtual (opcional) e instalar dependencias
 
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-
 
 Levantar nodos (ejemplo con nodo1, nodo7 y nodo8)
 
